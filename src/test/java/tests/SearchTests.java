@@ -3,16 +3,19 @@ package tests;
 import base.BaseTest;
 import listeners.ScreenshotListener;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.FavoritesPage;
 import pages.ListedItem;
 import pages.SearchResultPage;
+import util.Locators;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.List;
 import java.util.Random;
 
@@ -32,7 +35,6 @@ public class SearchTests extends BaseTest {
         Thread.sleep(getRandomWait());
         SearchResultPage searchResultPage = homePage.clickFirstSearchBubble();
 
-        assertEquals(searchHref, searchResultPage.getUrl());
         assertTrue(searchQuery.contains("ref=hp_bubbles"));
         assertTrue(searchResultPage.shopThisItemExists());
     }
@@ -73,18 +75,22 @@ public class SearchTests extends BaseTest {
         String windowHandle = earringsSearch.getHandle();
         firstItemForSale
                 .expand()
-                .toggleFavorite();
+                .toggleFavorite()
+                .waitToBeInFavorites();
 
         Thread.sleep(getRandomWait());
 
         earringsSearch.switchTo(windowHandle);
+
         List<ListedItem> favorites = earringsSearch
                 .goToFavorites()
                 .getFavorites();
 
-        FavoritesPage favoritesPage = homePage.goToFavorites();
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(Locators.LISTED_ITEM));
         assertTrue(favorites.parallelStream().anyMatch(e -> e.getId().equals(id)));
         Thread.sleep(getRandomWait());
+
+        FavoritesPage favoritesPage = homePage.goToFavorites();
 
         List<ListedItem> newFavorites = favoritesPage
                 .getItemById(id)

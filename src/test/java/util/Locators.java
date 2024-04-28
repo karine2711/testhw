@@ -8,12 +8,13 @@ public class Locators {
     public static final By HOMEPAGE_SEARCH_BUBBLES = By.className("homepage_search_bubble");
     public static final By SEARCH_INPUT = By.cssSelector("form#gnav-search input[type='text']");
     public static final By SEARCH_BUTTON = By.cssSelector("form#gnav-search button[type='submit']");
-    public static final By SORT_BY_OPTION_MENU = By.id("sortby");
+    public static final By SORT_BY_OPTION_MENU = By.cssSelector("#sortby");
     public static final By SORT_BY_ASC_PRICE = By.cssSelector("a[data-sort-by='price_asc']");
     public static final By RELEVANT_PRICES_ON_PAGE = By.cssSelector(".n-listing-card__price .lc-price .currency-value");
 
     public static final By LISTED_ITEM = By.className("v2-listing-card");
     public static final By ADD_TO_FAVORITES = By.cssSelector("button[data-accessible-btn-fave]");
+    public static final By FAVORITED_ICON = By.cssSelector("button[data-accessible-btn-fave] span[data-favorited-icon]");
 
     public static final By PRODUCT_DETAILS_SECTION = By.cssSelector("ul[data-selector=\"product-details-highlights\"]");
     public static final By GO_TO_FAVORITES = By.cssSelector("li[data-favorites-nav-container]");

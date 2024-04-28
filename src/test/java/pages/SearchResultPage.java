@@ -8,8 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import util.Locators;
 
-import java.util.stream.Collectors;
-
 public class SearchResultPage extends BasePage {
     public SearchResultPage(WebDriver driver) {
         super(driver);
@@ -40,7 +38,8 @@ public class SearchResultPage extends BasePage {
         return driver
                 .findElements(Locators.RELEVANT_PRICES_ON_PAGE)
                 .stream()
-                .mapToDouble(e -> Double.parseDouble(e.getText().isBlank() ? "0" : e.getText()))
+                .map(e -> e.getText().replace(",", ""))
+                .mapToDouble(e -> e.isBlank() ? 0 : Double.parseDouble(e))
                 .average()
                 .getAsDouble();
     }

@@ -25,4 +25,8 @@ public class ItemPage extends BasePage {
         WebElement productDetails = driver.findElement(Locators.PRODUCT_DETAILS_SECTION);
         return containsTextInDescendant(productDetails, str);
     }
+
+    public void waitToBeInFavorites() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(Locators.FAVORITED_ICON));
+    }
 }
