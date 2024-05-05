@@ -27,6 +27,7 @@ public class SearchResultPage extends BasePage {
         WebElement sortOptions = driver
                 .findElement(Locators.SORT_BY_OPTION_MENU);
         sortOptions.click();
+        wait.until(ExpectedConditions.elementToBeClickable(Locators.SORT_BY_ASC_PRICE));
         sortOptions
                 .findElement(Locators.SORT_BY_ASC_PRICE)
                 .click();
@@ -67,7 +68,8 @@ public class SearchResultPage extends BasePage {
         return driver
                 .findElements(Locators.RELEVANT_PRICES_ON_PAGE)
                 .stream()
-                .mapToDouble(e -> Double.parseDouble(e.getText().isBlank() ? "0" : e.getText()))
+                .map(e -> e.getText().replace(",", ""))
+                .mapToDouble(e -> Double.parseDouble(e.isBlank() ? "0" : e))
                 .allMatch(d -> d >= min && d <= max);
     }
 

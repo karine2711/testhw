@@ -27,6 +27,7 @@ public class ListedItem extends BasePage {
     }
 
     public ItemPage expand() {
+        wait.until(ExpectedConditions.elementToBeClickable(item.findElement(By.tagName("a"))));
         item
                 .findElement(By.tagName("a"))
                 .click();
